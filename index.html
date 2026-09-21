@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PureJet | Private Aircraft Detailing</title>
+<meta name="description" content="PureJet. Precision. Purity. Perfection. Private and commercial jet detailing by appointment only.">
+<link rel="icon" type="image/png" href="img/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ CONFIG: edit brand colors here ============ */
+:root{
+  --ink:#070808;
+  --ink-2:#0e1011;
+  --ink-3:#15181a;
+  --line:rgba(255,255,255,.09);
+  --text:#e9e7e2;
+  --muted:#8d8b86;
+  --gold:#c9a96a;
+  --gold-hi:#ecd9a8;
+  --gold-lo:#8a6e3c;
+  --jet:#86e34d;          /* brand green from the logo, used sparingly */
+  --alert:#e0533d;
+  --serif:"Cormorant Garamond", Georgia, serif;
+  --sans:"Poppins", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+.eyebrow{font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.serif{font-family:var(--serif);font-weight:300}
+.gold-text{background:linear-gradient(100deg,var(--gold-lo),var(--gold-hi) 45%,var(--gold) 60%,var(--gold-lo));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Gold-foil logo: the PNG is used as a mask, so the logo takes the gold gradient */
+.foil{background:linear-gradient(115deg,#8a6e3c 0%,#f1e0b0 38%,#c9a96a 55%,#fff4d6 70%,#9c7d45 100%);background-size:220% 100%;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;animation:sheen 9s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.foil-mark{-webkit-mask-image:url(img/logo-mark.png);mask-image:url(img/logo-mark.png)}
+.foil-word{-webkit-mask-image:url(img/logo-word.png);mask-image:url(img/logo-word.png)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.7em;padding:1em 1.9em;font-family:var(--sans);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;border:1px solid var(--gold);color:var(--gold);background:transparent;cursor:pointer;transition:.35s ease}
+.btn:hover{background:var(--gold);color:var(--ink)}
+.btn.solid{background:var(--gold);color:var(--ink)}
+.btn.solid:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn.alert{border-color:var(--alert);color:#fff;background:var(--alert)}
+.btn.alert:hover{background:#f06a53;border-color:#f06a53}
+.pulse{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,83,61,.7)}70%{box-shadow:0 0 0 10px rgba(224,83,61,0)}100%{box-shadow:0 0 0 0 rgba(224,83,61,0)}}
+
+/* ============ NAV ============ */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:.4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(7,8,8,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:84px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .foil-mark{width:34px;height:36px}
+.brand .foil-word{width:132px;height:19px}
+.nav-links{display:flex;gap:38px;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:flex;gap:12px}
+.nav-cta .btn{padding:.85em 1.3em;font-size:.64rem}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:min(100vh,920px);display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.55}
+.hero-bg{position:absolute;inset:0;z-index:-3;background:
+  radial-gradient(ellipse 80% 55% at 50% 38%,rgba(201,169,106,.16),transparent 65%),
+  radial-gradient(ellipse 60% 40% at 50% 110%,rgba(134,227,77,.06),transparent 70%),
+  linear-gradient(180deg,#0b0c0d 0%,#070808 100%)}
+.hero-bg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);opacity:.35}
+.contrail{position:absolute;height:1px;width:40vw;background:linear-gradient(90deg,transparent,var(--gold-hi),transparent);opacity:.0;animation:trail 7s linear infinite}
+.contrail.c1{top:30%;left:-40vw;animation-delay:0s}
+.contrail.c2{top:62%;left:-40vw;animation-delay:3.2s;width:28vw}
+@keyframes trail{0%{transform:translateX(0);opacity:0}15%{opacity:.7}85%{opacity:.5}100%{transform:translateX(180vw);opacity:0}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,8,8,.3) 0%,rgba(7,8,8,.1) 45%,var(--ink) 100%)}
+.hero-in{padding:140px 0 110px}
+.hero .foil-mark{width:92px;height:96px;margin:0 auto 34px;opacity:0;animation:rise 1.4s .2s ease forwards}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,7.2vw,6.4rem);line-height:1.02;letter-spacing:-.01em;opacity:0;animation:rise 1.4s .45s ease forwards}
+.hero h1 em{font-style:italic}
+.hero .eyebrow{display:block;margin-bottom:26px;opacity:0;animation:rise 1.2s .1s ease forwards}
+.hero p.lede{max-width:560px;margin:30px auto 46px;color:#b9b6b0;font-size:1rem;opacity:0;animation:rise 1.4s .7s ease forwards}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:rise 1.4s .9s ease forwards}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:.6rem;letter-spacing:.4em;color:var(--muted);text-transform:uppercase}
+.scroll-cue::after{content:"";display:block;width:1px;height:42px;margin:12px auto 0;background:linear-gradient(var(--gold),transparent)}
+
+/* ============ PRIORITY STRIP ============ */
+.strip{border-block:1px solid var(--line);background:var(--ink-2)}
+.strip-in{display:grid;grid-template-columns:1.3fr 1fr 1fr;align-items:stretch}
+.strip-cell{padding:34px 34px;border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.strip-cell:first-child{border-left:0;padding-left:0}
+.strip-cell h4{font-family:var(--serif);font-weight:400;font-size:1.55rem;line-height:1.2}
+.strip-cell small{color:var(--muted);font-size:.8rem}
+.strip-cell a.line{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;margin-top:6px}
+.strip-cell a.line.red{color:var(--alert)}
+.strip-cell a.line.gold{color:var(--gold)}
+.strip-cell a.line:hover{letter-spacing:.34em}
+.strip-cell a.line{transition:.3s}
+
+/* ============ SECTIONS ============ */
+section{padding:140px 0;scroll-margin-top:60px}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px}
+.head h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.05;margin-top:18px}
+.head p{color:var(--muted);max-width:460px;justify-self:end}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.svc{padding:46px 38px 50px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .5s}
+.svc:hover{background:linear-gradient(180deg,rgba(201,169,106,.06),transparent)}
+.svc .num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.1rem}
+.svc h3{font-family:var(--serif);font-weight:400;font-size:1.75rem;margin:22px 0 14px;line-height:1.15}
+.svc p{color:var(--muted);font-size:.9rem}
+.svc::after{content:"";position:absolute;left:38px;bottom:0;height:1px;width:0;background:var(--gold);transition:width .6s ease}
+.svc:hover::after{width:calc(100% - 76px)}
+
+
+/* Fleet gallery */
+.jets{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.jet{margin:0;position:relative;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
+.jet img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;transition:transform 1.2s ease,filter .8s ease;filter:saturate(.92)}
+.jet:hover img{transform:scale(1.04);filter:saturate(1.05)}
+.jet figcaption{position:absolute;inset:auto 0 0 0;padding:26px 22px 20px;background:linear-gradient(transparent,rgba(7,8,8,.92) 55%)}
+.jet figcaption h3{font-family:var(--serif);font-weight:400;font-size:1.35rem;line-height:1.15}
+.jet figcaption span{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}
+.jet:first-child{grid-column:span 2;grid-row:span 2}
+.jet:first-child img{aspect-ratio:auto;height:100%;min-height:340px}
+.jet:first-child figcaption h3{font-size:2rem}
+.ba-note{font-size:.68rem;color:var(--muted);letter-spacing:.06em;margin-top:18px}
+@media (max-width:900px){.jets{grid-template-columns:1fr 1fr}.jet:first-child{grid-column:span 2;grid-row:auto}.jet:first-child img{aspect-ratio:3/2;min-height:0}}
+@media (max-width:620px){.jets{grid-template-columns:1fr}.jet:first-child{grid-column:auto}}
+
+/* Statement */
+.statement{background:var(--ink-2);border-block:1px solid var(--line);text-align:center;padding:150px 0}
+.statement blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4vw,3.3rem);line-height:1.2;max-width:960px;margin:0 auto}
+.statement blockquote em{font-style:italic}
+.statement .foil-word{width:220px;height:32px;margin:48px auto 0}
+.statement .tag{margin-top:14px;font-size:.66rem;letter-spacing:.5em;color:var(--muted);text-transform:uppercase}
+
+/* Process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.step{padding:0 30px 0 0;position:relative}
+.step .dot{width:11px;height:11px;border:1px solid var(--gold);border-radius:50%;background:var(--ink);position:relative;z-index:1}
+.step::before{content:"";position:absolute;top:5px;left:0;right:0;height:1px;background:var(--line)}
+.step:last-child::before{right:auto;width:0}
+.step h5{font-family:var(--serif);font-weight:400;font-size:1.4rem;margin:30px 0 10px}
+.step p{color:var(--muted);font-size:.88rem}
+.step .eyebrow{display:block;margin-top:26px;font-size:.62rem}
+
+/* Membership / access */
+.access{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tier{border:1px solid var(--line);padding:52px 46px;position:relative;background:var(--ink-2)}
+.tier.feature{border-color:rgba(201,169,106,.45);background:linear-gradient(160deg,rgba(201,169,106,.09),var(--ink-2) 55%)}
+.tier h3{font-family:var(--serif);font-weight:400;font-size:2.1rem;margin:14px 0 18px}
+.tier ul{list-style:none;margin:26px 0 36px}
+.tier li{padding:13px 0;border-bottom:1px solid var(--line);font-size:.9rem;color:#c6c3bd;display:flex;gap:14px}
+.tier li::before{content:"";flex:none;width:14px;height:1px;background:var(--gold);margin-top:.85em}
+.tier .badge{position:absolute;top:0;right:46px;transform:translateY(-50%);background:var(--gold);color:var(--ink);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;padding:7px 14px;font-weight:600}
+
+/* Request / form */
+.request{background:var(--ink-2);border-top:1px solid var(--line)}
+.req-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}
+.req-grid h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.05;margin:18px 0 22px}
+.req-grid .side p{color:var(--muted);margin-bottom:34px}
+.contact-list{border-top:1px solid var(--line)}
+.contact-list a,.contact-list div{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase}
+.contact-list span{color:var(--muted);letter-spacing:.1em;text-transform:none;font-size:.85rem}
+.contact-list a:hover{color:var(--gold)}
+.form-shell{border:1px solid var(--line);background:var(--ink);padding:48px;position:relative}
+.form-shell::before{content:"";position:absolute;inset:-1px;border:1px solid transparent;background:linear-gradient(135deg,rgba(201,169,106,.6),transparent 40%) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.form-shell .eyebrow{display:block;margin-bottom:26px}
+.demo-form{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
+.demo-form .full{grid-column:1/-1}
+.demo-form label{display:block;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.demo-form input,.demo-form select,.demo-form textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.18);color:var(--text);font-family:var(--sans);font-weight:300;font-size:.95rem;padding:10px 0;outline:none;transition:border-color .3s;border-radius:0}
+.demo-form select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.demo-form select option{background:var(--ink-2)}
+.demo-form textarea{resize:vertical;min-height:90px}
+.demo-form input:focus,.demo-form select:focus,.demo-form textarea:focus{border-bottom-color:var(--gold)}
+.fs-msg{display:none;padding:16px 18px;margin-bottom:24px;font-size:.88rem;border:1px solid}
+.fs-msg[data-fs-active]{display:block}
+.fs-ok{border-color:rgba(201,169,106,.5);background:rgba(201,169,106,.08)!important;color:var(--gold-hi)!important}
+.fs-bad{border-color:rgba(224,83,61,.5);background:rgba(224,83,61,.08)!important;color:#f3a497!important}
+.demo-form [data-fs-error]:not(:empty){display:block;color:#f3a497;font-size:.72rem;margin-top:6px}
+.demo-form [aria-invalid="true"]{border-bottom-color:var(--alert)!important}
+.demo-form button[disabled]{opacity:.55;cursor:wait}
+.req-type{border:0;display:flex;gap:10px;flex-wrap:wrap;padding:0;margin:0 0 6px}
+.req-type legend{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding:0}
+.req-type label{margin:0;cursor:pointer}
+.req-type input{position:absolute;opacity:0;width:1px;height:1px}
+.req-type span{display:inline-block;padding:.75em 1.3em;border:1px solid var(--line);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);transition:.25s}
+.req-type input:checked + span{border-color:var(--gold);color:var(--ink);background:var(--gold)}
+.req-type .emg input:checked + span{border-color:var(--alert);background:var(--alert);color:#fff}
+.req-type input:focus-visible + span{outline:2px solid var(--gold-hi);outline-offset:2px}
+.form-shell.is-emergency{border-color:rgba(224,83,61,.55)}
+.form-shell.is-emergency #f-eyebrow{color:var(--alert)}
+.form-note{font-size:.72rem;color:var(--muted);margin-top:20px}
+
+/* Footer */
+footer{padding:80px 0 50px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.foot .logo-lockup .foil-mark{width:58px;height:60px;margin-bottom:18px}
+.foot .logo-lockup .foil-word{width:180px;height:26px}
+.foot .tagline{font-size:.62rem;letter-spacing:.5em;color:var(--gold);margin-top:12px;text-transform:uppercase}
+.foot small{color:var(--muted);font-size:.72rem;letter-spacing:.12em}
+
+/* Floating emergency button */
+.fab{position:fixed;right:24px;bottom:24px;z-index:60;display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--alert);color:#fff;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;font-weight:600;border:0;cursor:pointer;box-shadow:0 12px 30px rgba(224,83,61,.35);transition:.3s;font-family:var(--sans)}
+.fab:hover{transform:translateY(-2px)}
+
+/* Reveal on scroll */
+.reveal{opacity:1}
+
+/* Responsive */
+@media (max-width:980px){
+  .nav-links{display:none}
+  .strip-in{grid-template-columns:1fr}
+  .strip-cell{border-left:0;border-top:1px solid var(--line);padding:28px 0}
+  .strip-cell:first-child{border-top:0}
+  .head,.req-grid,.access{grid-template-columns:1fr;gap:30px}
+  .head p{justify-self:start}
+  .services{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:50px 0}
+  section{padding:100px 0}
+}
+@media (max-width:620px){
+  .wrap{width:calc(100% - 32px)}
+  .nav-cta .btn.ghost{display:none}
+  .brand .foil-word{width:104px;height:15px}
+  .services{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .demo-form{grid-template-columns:1fr}
+  .form-shell,.tier{padding:38px 24px}
+  .fab span.txt{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero *{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONFIG
+     1. Phone: 317.970.3904 (contact list and footer).
+     2. Email: search for support@purejetelite.com and replace.
+     3. Hero video: drop your video file next to this page named
+        purejet-hero.mp4 (or change the src below). Falls back to
+        the animated background if no file is found.
+     4. Form: Formspree AJAX, form ID xeaoagpr (see #request-form).
+        Every Request, Priority and Emergency button scrolls to this form
+        and presets the request type (data-req attribute).
+     ============================================================ -->
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label="PureJet home">
+      <div class="foil foil-mark" role="img" aria-label="PureJet mark"></div>
+      <div class="foil foil-word" role="img" aria-label="PureJet"></div>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#results">Results</a>
+      <a href="#process">Process</a>
+      <a href="#access">Access</a>
+      <a href="#request">Request</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#request" class="btn ghost" data-req="Standard">Request Service</a>
+      <a href="#request" class="btn alert" data-req="Emergency"><span class="pulse"></span>Emergency</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="purejet-hero.mp4" type="video/mp4">
+  </video>
+  <div class="contrail c1"></div>
+  <div class="contrail c2"></div>
+  <div class="wrap hero-in">
+    <span class="eyebrow">Private &amp; Commercial Aircraft Detailing</span>
+    <div class="foil foil-mark" role="img" aria-label="PureJet"></div>
+    <h1>Spotless on the ramp.<br><em class="gold-text">Before the crew arrives.</em></h1>
+    <p class="lede">PureJet details corporate, charter and commercial aircraft to a standard your passengers notice at the stairs. By appointment and referral only.</p>
+    <div class="hero-ctas">
+      <a href="#request" class="btn solid" data-req="Standard">Request Service</a>
+      <a href="#request" class="btn" data-req="Priority">Priority Call</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<!-- ============ PRIORITY STRIP ============ -->
+<div class="strip">
+  <div class="wrap strip-in">
+    <div class="strip-cell">
+      <span class="eyebrow">Always On Call</span>
+      <h4>AOG, last minute departure, or a VIP on the manifest? We dispatch.</h4>
+    </div>
+    <div class="strip-cell">
+      <small>Aircraft down or departure at risk</small>
+      <a href="#request" class="line red" data-req="Emergency"><span class="pulse"></span>Emergency Service Request &rarr;</a>
+    </div>
+    <div class="strip-cell">
+      <small>Account holders and scheduled clients</small>
+      <a href="#request" class="line gold" data-req="Priority">Priority Call Request &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Services</span>
+        <h2 class="serif">Every surface.<br><em>Every detail.</em></h2>
+      </div>
+      <p>Aviation approved products and methods on every job. Crews trained on paint, composite, brightwork and cabin materials, and fully insured to work on your aircraft.</p>
+    </div>
+    <div class="services reveal">
+      <div class="svc"><span class="num">i.</span><h3>Exterior Wash &amp; Dry Wash</h3><p>Hand wash or waterless dry wash on the ramp or in the hangar. Leading edges, gear wells and belly cleaned of exhaust and grime.</p></div>
+      <div class="svc"><span class="num">ii.</span><h3>Cabin Detailing</h3><p>Leather, veneer, carpet, galley and lavatory. Cleaned and conditioned to OEM spec, then inspected seat by seat.</p></div>
+      <div class="svc"><span class="num">iii.</span><h3>Brightwork Polishing</h3><p>Hand polished leading edges, inlets and trim. Mirror finish, protected against oxidation.</p></div>
+      <div class="svc"><span class="num">iv.</span><h3>Paint Protection &amp; Ceramic</h3><p>Paint correction, sealant and ceramic coating. Less drag from grime, faster washes, longer paint life.</p></div>
+      <div class="svc"><span class="num">v.</span><h3>Turnaround &amp; Quick Turn</h3><p>Between legs service timed to your schedule. Cabin reset, trash, galley and a clean exterior before wheels up.</p></div>
+      <div class="svc"><span class="num">vi.</span><h3>Fleet Programs</h3><p>Recurring schedules for flight departments, charter operators and airlines. One point of contact and a detailed report after every visit.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ FLEET GALLERY ============ -->
+<section id="results" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">The Work</span>
+        <h2 class="serif">Finished aircraft,<br><em>inside and out.</em></h2>
+      </div>
+      <p>Light jets to ultra-long-range aircraft, exteriors and cabins. Every aircraft leaves ready for passengers.</p>
+    </div>
+    <div class="jets reveal">
+      <figure class="jet">
+        <img src="img/jet-trijet.jpg" alt="Large-Cabin Trijet" loading="lazy">
+        <figcaption><h3>Large-Cabin Trijet</h3><span>Full exterior wash and brightwork</span></figcaption>
+      </figure>
+      <figure class="jet">
+        <img src="img/jet-light.jpg" alt="Light Jet" loading="lazy">
+        <figcaption><h3>Light Jet</h3><span>Exterior wash and gloss restore</span></figcaption>
+      </figure>
+      <figure class="jet">
+        <img src="img/jet-hangar.jpg" alt="Midsize Jet" loading="lazy">
+        <figcaption><h3>Midsize Jet</h3><span>Hangar wash and paint protection</span></figcaption>
+      </figure>
+      <figure class="jet">
+        <img src="img/jet-longrange.jpg" alt="Ultra-Long-Range Jet" loading="lazy">
+        <figcaption><h3>Ultra-Long-Range Jet</h3><span>Ramp dry wash</span></figcaption>
+      </figure>
+      <figure class="jet">
+        <img src="img/cabin-large.jpg" alt="Large Cabin Interior" loading="lazy">
+        <figcaption><h3>Large Cabin Interior</h3><span>Leather, veneer and carpet detail</span></figcaption>
+      </figure>
+      <figure class="jet">
+        <img src="img/cabin-club.jpg" alt="Club Seating Interior" loading="lazy">
+        <figcaption><h3>Club Seating Interior</h3><span>Leather clean and condition</span></figcaption>
+      </figure>
+    </div>
+    <p class="ba-note">Sample imagery. Aircraft photos via Pexels.</p>
+  </div>
+</section>
+
+<!-- ============ STATEMENT ============ -->
+<div class="statement">
+  <div class="wrap reveal">
+    <span class="eyebrow">The PureJet Standard</span>
+    <blockquote style="margin-top:28px">Your aircraft is the first thing your passengers see.<br><em class="gold-text">We make sure it says the right thing.</em></blockquote>
+    <div class="foil foil-word" role="img" aria-label="PureJet"></div>
+    <div class="tag">Precision. Purity. Perfection.</div>
+  </div>
+</div>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Process</span>
+        <h2 class="serif">Quiet, fast,<br><em>on your schedule.</em></h2>
+      </div>
+      <p>We work around your flight plan, not ours. You get one contact from the first call to the final walkaround.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><div class="dot"></div><span class="eyebrow">Step 01</span><h5>Request</h5><p>Submit the form or call the priority line with tail number, location and timing.</p></div>
+      <div class="step"><div class="dot"></div><span class="eyebrow">Step 02</span><h5>Confirm</h5><p>Your concierge confirms scope, FBO access and a service window.</p></div>
+      <div class="step"><div class="dot"></div><span class="eyebrow">Step 03</span><h5>Detail</h5><p>A dedicated crew arrives with everything needed. No disruption to ground ops.</p></div>
+      <div class="step"><div class="dot"></div><span class="eyebrow">Step 04</span><h5>Sign Off</h5><p>Final walkaround and photo report sent before the crew shows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCESS ============ -->
+<section id="access" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Access</span>
+        <h2 class="serif">Two ways<br><em>to fly with us.</em></h2>
+      </div>
+      <p>Book a single service, or hold a priority account for guaranteed response and a standing crew.</p>
+    </div>
+    <div class="access reveal">
+      <div class="tier">
+        <span class="eyebrow">By Request</span>
+        <h3>Single Service</h3>
+        <p style="color:var(--muted);font-size:.9rem">For owners and operators who need a detail on a specific date.</p>
+        <ul>
+          <li>Any service, any aircraft size</li>
+          <li>Scheduled around your departure</li>
+          <li>Photo report on completion</li>
+        </ul>
+        <a href="#request" class="btn" data-req="Standard">Request Service</a>
+      </div>
+      <div class="tier feature">
+        <span class="badge">Priority</span>
+        <span class="eyebrow">Invitation Only</span>
+        <h3>Priority Account</h3>
+        <p style="color:var(--muted);font-size:.9rem">For flight departments and principals who can't wait.</p>
+        <ul>
+          <li>Direct priority line, answered by your concierge</li>
+          <li>First call on emergency and AOG dispatch</li>
+          <li>Standing crew who knows your aircraft</li>
+          <li>Recurring schedule and fleet reporting</li>
+        </ul>
+        <a href="#request" class="btn solid" data-req="Priority">Priority Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REQUEST ============ -->
+<section class="request" id="request">
+  <div class="wrap req-grid">
+    <div class="side reveal">
+      <span class="eyebrow">Request Service</span>
+      <h2>Tell us about<br><em class="gold-text">your aircraft.</em></h2>
+      <p>Four fields and you are in the queue. Priority and emergency requests go straight to the front, and a concierge calls you back to confirm.</p>
+      <div class="contact-list">
+        <a href="tel:+13179703904">Phone <span>317.970.3904</span></a>
+        <a href="#request" data-req="Emergency" style="color:var(--alert)">Emergency Request <span>AOG / urgent &rarr;</span></a>
+        <a href="mailto:support@purejetelite.com">Concierge <span>support@purejetelite.com</span></a>
+      </div>
+    </div>
+
+    <div class="form-shell reveal" id="form-shell">
+      <span class="eyebrow" id="f-eyebrow">Service Request</span>
+      <!-- ===== FORMSPREE (AJAX): endpoint https://formspree.io/f/xeaoagpr
+                 action/method stay on the form so it still submits if JS is off. ===== -->
+      <div class="fs-msg fs-ok" data-fs-success>Request received. Your concierge will confirm a service window shortly.</div>
+      <div class="fs-msg fs-bad" data-fs-error></div>
+      <form id="request-form" class="demo-form" action="https://formspree.io/f/xeaoagpr" method="POST">
+        <input type="hidden" name="_subject" id="f-subject" value="PureJet Service Request">
+        <fieldset class="full req-type">
+          <legend>Request Type</legend>
+          <label><input type="radio" name="request_type" value="Standard" checked><span>Standard</span></label>
+          <label><input type="radio" name="request_type" value="Priority"><span>Priority</span></label>
+          <label class="emg"><input type="radio" name="request_type" value="Emergency"><span>Emergency</span></label>
+        </fieldset>
+        <div><label for="f-name">Name</label><input id="f-name" type="text" name="name" autocomplete="name" required data-fs-field><span data-fs-error="name"></span></div>
+        <div><label for="f-phone">Phone</label><input id="f-phone" type="tel" name="phone" autocomplete="tel" required data-fs-field><span data-fs-error="phone"></span></div>
+        <div><label for="f-email">Email</label><input id="f-email" type="email" name="email" autocomplete="email" required data-fs-field><span data-fs-error="email"></span></div>
+        <div><label for="f-date">Service Date Requested</label><input id="f-date" type="date" name="service_date" required data-fs-field><span data-fs-error="service_date"></span></div>
+        <div class="full"><button type="submit" class="btn solid" id="f-submit" data-fs-submit-btn>Submit Request</button></div>
+      </form>
+      <p class="form-note">Every request is handled in confidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <div class="logo-lockup">
+      <div class="foil foil-mark" role="img" aria-label="PureJet"></div>
+      <div class="foil foil-word" role="img" aria-label="PureJet"></div>
+      <div class="tagline">Precision. Purity. Perfection.</div>
+    </div>
+    <div style="text-align:right">
+      <div class="nav-cta" style="justify-content:flex-end;margin-bottom:22px;flex-wrap:wrap">
+        <a href="#request" class="btn" data-req="Priority">Priority Call</a>
+        <a href="#request" class="btn alert" data-req="Emergency"><span class="pulse"></span>Emergency</a>
+      </div>
+      <small><a href="tel:+13179703904" style="color:var(--gold)">317.970.3904</a> &nbsp;&middot;&nbsp; <a href="mailto:support@purejetelite.com">support@purejetelite.com</a></small><br><small>&copy; <span id="yr"></span> PureJet. All rights reserved.</small>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating emergency button -->
+<a href="#request" class="fab" data-req="Emergency" aria-label="Emergency service request"><span class="pulse"></span><span class="txt">Emergency Service</span></a>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>40)};
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+
+  // Hide video element if no file is present
+  var v=document.querySelector('.hero video');
+  if(v){v.addEventListener('error',function(){v.style.display='none'},true);
+    var s=v.querySelector('source');if(s)s.addEventListener('error',function(){v.style.display='none'});}
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){var id=a.getAttribute('href').slice(1);var el=id&&document.getElementById(id);
+      if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}});
+  });
+
+  // Request type: every CTA presets it, the form subject follows it
+  var shell=document.getElementById('form-shell'),subj=document.getElementById('f-subject'),
+      eb=document.getElementById('f-eyebrow'),btn=document.getElementById('f-submit');
+  var LABEL={Standard:'Service Request',Priority:'Priority Call Request',Emergency:'Emergency Service Request'};
+  function setType(v){
+    var r=document.querySelector('input[name="request_type"][value="'+v+'"]');if(!r)return;r.checked=true;
+    subj.value='PureJet '+LABEL[v];eb.textContent=LABEL[v];
+    btn.textContent=v==='Standard'?'Submit Request':'Submit '+v+' Request';
+    shell.classList.toggle('is-emergency',v==='Emergency');
+  }
+  document.querySelectorAll('input[name="request_type"]').forEach(function(r){r.addEventListener('change',function(){setType(r.value)})});
+  document.querySelectorAll('[data-req]').forEach(function(a){
+    a.addEventListener('click',function(){setType(a.getAttribute('data-req'));
+      setTimeout(function(){var n=document.getElementById('f-name');try{n.focus({preventScroll:true})}catch(e){}},600);});
+  });
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#request-form', formId: 'xeaoagpr' });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@formspree/ajax@1/dist/global.js" defer></script>
+</body>
+</html>
